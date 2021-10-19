@@ -9,10 +9,12 @@ import './PatientLogin.css';
 import initializeAuthentication from './firebase.init';
 // import { GoogleAuthProvider , getAuth, signInWithPopup, } from "firebase/auth";
 import {
-    googleSignIn,
+    createUserEmailAndPassword,
+    googleSignIn, signInWithEmailPass,
 } from "./LoginInManager";
 import { useHistory, useLocation } from 'react-router';
 import { UserContext } from '../../App';
+import { createUserWithEmailAndPassword } from '@firebase/auth';
 
 // initializeLoginFramework()
 
@@ -107,15 +109,63 @@ const PatientLogin = () => {
         });
 
     }
-
-
-
     const [newUser, setNewUser] = useState(false);
     const classes = useStyles();
 
+    const handleSubmit = (e) => {
+        if (newUser && user.email && user.password) {
+            createUserEmailAndPassword(
+                user.firstName,
+                user.lastName,
+                user.email,
+                user.password
+            ).then((res) => {
+                setUser(res);
+                setLoggedInUser(res);
+                console.log('Created ');
+            });
+        }
+
+        if (!newUser && user.email && user.password) {
+            signInWithEmailPass(user.email, user.password).then(
+                (res) => {
+                    setUser(res);
+                    setLoggedInUser(res);
+                    history.replace(from);
+                }
+            );
+        }
+        e.preventDefault();
+        console.log('hello ');
+        console.log('user :>> ', user);
+    };
+
+
+    const handleBlur = (e) => {
+        let isFieldValid = true;
+        // if (e.target.name === "email") {
+        //     isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
+        // }
+        // if (e.target.name === "password") {
+        //     const isPasswordValid = e.target.value.length >= 6;
+        //     const containNumber = /\d+/.test(e.target.value);
+        //     isFieldValid = isPasswordValid && containNumber;
+        // }
+        // if (newUser && e.target.name === "confirmPassword") {
+        //     isFieldValid = e.target.value === user.password;
+        // }
+        if (isFieldValid) {
+            const newUserInfo = { ...user };
+            newUserInfo[e.target.name] = e.target.value;
+            setUser(newUserInfo);
+        }
+    };
+
+
+
     return (
         <Layout>
-            <div >
+            <div>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-5 col-sm-12 col-12">
@@ -125,6 +175,7 @@ const PatientLogin = () => {
                                         className={classes.root}
                                         noValidate
                                         autoComplete="off"
+                                        onSubmit={(e) => handleSubmit(e)}
                                     >
                                         {newUser ? (
                                             <h5>Create an account</h5>
@@ -137,6 +188,7 @@ const PatientLogin = () => {
                                                 label="First Name"
                                                 required
                                                 name="firstName"
+                                                onBlur={handleBlur}
                                             />
                                         )}
                                         <br />
@@ -144,7 +196,7 @@ const PatientLogin = () => {
                                             <TextField
                                                 label="Last Name"
                                                 required
-
+                                                onBlur={handleBlur}
                                                 name="lastName"
                                             />
                                         )}
@@ -152,7 +204,7 @@ const PatientLogin = () => {
                                         <TextField
                                             label="Username or Email"
                                             required
-
+                                            onBlur={handleBlur}
                                             name="email"
                                             type="email"
                                         />
@@ -163,7 +215,7 @@ const PatientLogin = () => {
                                             type="password"
                                             autoComplete="current-password"
                                             required
-
+                                            onBlur={handleBlur}
                                             name="password"
                                         />
                                         <br />
@@ -173,18 +225,16 @@ const PatientLogin = () => {
                                                 type="password"
                                                 autoComplete="current-password"
                                                 required
-
+                                                onBlur={handleBlur}
                                                 name="confirmPassword"
                                             />
                                         )}
                                         <br />
-
                                         <input
                                             className={classes.submit}
                                             type="submit"
                                             value={newUser ? "Create an account" : "Login"}
                                         />
-
                                         <small style={{ color: "red" }}>{user.error}</small>
                                         <div className={classes.small}>
                                             <small>
