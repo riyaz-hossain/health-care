@@ -1,0 +1,24 @@
+.toggle-field {
+    color: #11CFE0;
+}
+
+.toggle-field:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.row{
+    width: 100%;
+}
+.login-bg{
+    width: 100%;
+}
+.login-bg img{
+    width: auto;
+    height: 555px;
+}
+
+@media(max-width: 575px){
+    .login-area{
+        margin-left: 5%;
+    }
+}

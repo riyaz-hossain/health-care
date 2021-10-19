@@ -1,0 +1,53 @@
+/* banner area css start */
+
+.banner-area {
+    text-align: justify;
+    font-family: "PT Sans Narrow", sans-serif;
+}
+
+.banner-area .banner-item p {
+    color: blue;
+    font-weight: 500;
+    font-size: 19px;
+}
+
+/* banner area css ends  */
+
+.welcome-text p {
+    font-size: 19px;
+    margin: 25px 0;
+}
+
+/* welcome area css start */
+.service-icon i{
+    font-size: 95px;
+    color: #14D1C9;
+}
+
+/* welcome area css ends */
+
+/* testimonial  area css start */
+.testimonials .container{
+    background-image: url('../../images/quoteBg.png');
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: 150px;
+}
+.testimonials .card {
+    border-color: transparent;
+}
+.testimonials .card .card-footer {
+    border: 0;
+    background: transparent;
+}
+
+
+/* testimonial area css ends */
+
+
+
+@media (max-width: 575px) {
+    .banner-area .banner-img img {
+        margin-top: 1rem;
+    }
+}

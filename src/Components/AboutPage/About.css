@@ -1,0 +1,17 @@
+.more-to-explore{
+    border: 3px solid #14D1C9;
+    padding: 25px 9px ;
+}
+
+.more-explore-btn-area{
+
+    margin: 35px 0;
+}
+.more-explore-btn{
+    background-color: #14D1C9;
+    text-decoration: none;
+    color: #fff;
+    padding: 15px 9px;
+    font-weight: bold;
+    font-size: 19px;
+}

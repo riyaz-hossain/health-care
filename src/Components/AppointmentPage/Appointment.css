@@ -1,0 +1,14 @@
+.appointment-header{
+    background: url('../../images/chairBg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+.appointment-header img{
+    width: 100%;
+}
+@media(max-width:575px){
+    .appointment-header-right-content{
+        margin-left: 11%;
+    }
+}
